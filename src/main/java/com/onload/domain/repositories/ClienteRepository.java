@@ -10,8 +10,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class ClienteRepository implements PanacheRepository<Cliente> {
 
-    public Optional<Cliente> finByEmail(String email){
+    public Optional<Cliente> findByEmail(String email) {
         return find("email", email).firstResultOptional();
     }
-    
+
 }
