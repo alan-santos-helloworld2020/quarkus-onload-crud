@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+
 import com.onload.domain.models.Cliente;
 import com.onload.domain.services.ClienteService;
 import com.onload.web.dtos.ClienteDTO;
@@ -28,6 +30,7 @@ public class ClienteResource {
     ClienteService service;
 
     @GET
+    @Operation(summary = "Lista todos os clientes")
     public List<Cliente> findAll() {
         System.out.println(service.findAll());
         return service.findAll();
@@ -35,14 +38,16 @@ public class ClienteResource {
 
     @GET
     @Path("{id}")
+    @Operation(summary = "Busca por id")
     public Optional<Cliente> findById(@PathParam("id") Long id) {
         return service.findById(id);
     }
 
     @POST
-    public Response savCliente(@Valid ClienteDTO dto ){
+    @Operation(summary = "Salva um cliente")
+    public Response saveCliente(@Valid ClienteDTO dto){
 
-        var criado = service.savCliente(dto);
+        var criado = service.saveCliente(dto);
         return Response.created(URI.create(String.format("/clientes/%s",criado.nome())))
                 .entity(criado).build();
     }

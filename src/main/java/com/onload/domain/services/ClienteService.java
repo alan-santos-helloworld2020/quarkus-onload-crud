@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.onload.domain.models.Cliente;
+
 import com.onload.domain.repositories.ClienteRepository;
+import com.onload.domain.repositories.LojaRepository;
 import com.onload.web.dtos.ClienteDTO;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,9 +18,11 @@ import jakarta.ws.rs.core.Response;
 public class ClienteService {
 
     ClienteRepository clienteRepository;
+    LojaRepository lojReLojaRepository;
 
-    public ClienteService(ClienteRepository _clienteRepository) {
+    public ClienteService(ClienteRepository _clienteRepository, LojaRepository _lojReLojaRepository) {
         this.clienteRepository = _clienteRepository;
+        this.lojReLojaRepository = _lojReLojaRepository;
     }
 
     public List<Cliente> findAll() {
@@ -26,12 +30,19 @@ public class ClienteService {
     }
 
     public Optional<Cliente> findById(Long id) {
-        var res = clienteRepository.findByIdOptional(id);
-        return res;
+        var cliente = clienteRepository.findByIdOptional(id);
+        if (!cliente.isPresent())
+            throw new WebApplicationException("cliente não encontrado", Response.Status.NOT_FOUND);
+
+        return cliente;
     }
 
     @Transactional
-    public ClienteDTO savCliente(ClienteDTO clienteDto) {
+    public ClienteDTO saveCliente(ClienteDTO clienteDto) {
+
+        var loja = lojReLojaRepository.findById(clienteDto.lojaId());
+        if (loja == null)
+            throw notFound("Cliente não encontrado");
 
         clienteRepository.findByEmail(clienteDto.email()).ifPresent(x -> {
             throw conflict("E-mail já cadastrado");
@@ -42,6 +53,7 @@ public class ClienteService {
         cl.email = clienteDto.email();
         cl.telefone = clienteDto.telefone();
         cl.cep = clienteDto.cep();
+        cl.loja = loja;
 
         clienteRepository.persist(cl);
         clienteRepository.flush();
