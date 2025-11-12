@@ -1,5 +1,7 @@
 src/main/resources/import.sql
 
+src/main/resources/jwt
+
 #Maven
 target/
 pom.xml.tag
