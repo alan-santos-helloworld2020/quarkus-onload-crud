@@ -2,6 +2,7 @@ package com.onload.web.controllers;
 
 import com.onload.web.dtos.*;
 import com.onload.domain.services.LojaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Lojas", description = "Endpoints para gestão de lojas")
+@RolesAllowed("USER")
 public class LojaResource {
 
     @Inject

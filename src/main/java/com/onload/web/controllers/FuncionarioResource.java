@@ -3,6 +3,7 @@ package com.onload.web.controllers;
 
 import com.onload.web.dtos.FuncionarioDTO;
 import com.onload.domain.services.FuncionarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Funcionários", description = "Endpoints para gestão de funcionários")
+@RolesAllowed("USER")
 public class FuncionarioResource {
 
     @Inject

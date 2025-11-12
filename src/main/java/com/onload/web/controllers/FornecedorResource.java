@@ -4,6 +4,7 @@ package com.onload.web.controllers;
 
 import com.onload.web.dtos.FornecedorDTO;
 import com.onload.domain.services.FornecedorService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Fornecedores", description = "Endpoints para gestão de fornecedores")
+@RolesAllowed("USER")
 public class FornecedorResource {
 
     @Inject

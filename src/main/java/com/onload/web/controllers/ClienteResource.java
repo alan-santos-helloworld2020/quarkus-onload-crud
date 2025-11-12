@@ -10,6 +10,7 @@ import com.onload.domain.models.Cliente;
 import com.onload.domain.services.ClienteService;
 import com.onload.web.dtos.ClienteDTO;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/cliente")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed("USER")
 public class ClienteResource {
 
     @Inject

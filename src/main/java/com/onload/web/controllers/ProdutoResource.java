@@ -3,6 +3,7 @@ package com.onload.web.controllers;
 
 import com.onload.web.dtos.ProdutoDTO;
 import com.onload.domain.services.ProdutoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Produtos", description = "Endpoints para gestão de produtos vinculados a fornecedores")
+@RolesAllowed("USER")
 public class ProdutoResource {
 
     @Inject

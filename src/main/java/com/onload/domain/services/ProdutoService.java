@@ -73,6 +73,7 @@ public class ProdutoService {
         p.preco = dto.preco();
         p.quantidade = dto.quantidade();
         p.fornecedor = fornecedorRepository.findById(dto.fornecedorId());
+        
 
         return toDTO(p);
     }
@@ -86,5 +87,7 @@ public class ProdutoService {
     private ProdutoDTO toDTO(Produto p) {
         return new ProdutoDTO(p.id, p.nome, p.descricao, p.preco, p.quantidade,
                 p.fornecedor != null ? p.fornecedor.id : null);
-    }
+    }    
+
+    
 }
